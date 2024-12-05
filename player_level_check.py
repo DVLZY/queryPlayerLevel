@@ -26,7 +26,8 @@ for name in l_name.split(' '):
                                     , headers=headers
                                     , data=payload)
         # 获取运动员信息详情
-        payload = f'{{"athleteInfoId":"{response.json()['data']['list'][0]['athleteInfoId']}"}}'
+        athlete_info_id = response.json()['data']['list'][0]['athleteInfoId']
+        payload = f'{{"athleteInfoId":"{athlete_info_id}"}}'
         response = requests.request("POST"
                                     , url="https://ydydj.univsport.com/api/system/athlete/front-end-detail"
                                     , headers=headers
