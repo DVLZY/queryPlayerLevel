@@ -19,7 +19,8 @@ for name in l_name.split(' '):
             'content-type': 'application/json;charset=UTF-8',
             'requestid': f"{random.randint(1_000_000_000, 9_999_999_999):010d}"  # 逆向生成 requestid 算法
         }
-        payload = f'{{"certificateNo":"{list_data['certificate_num']}","athleteRealName":"{name}"}}'
+        certificate_num=list_data['certificate_num']
+        payload = f'{{"certificateNo":"{certificate_num}","athleteRealName":"{name}"}}'
         response = requests.request("POST"
                                     , url="https://ydydj.univsport.com/api/system/athlete/front-end-list"
                                     , headers=headers
@@ -33,7 +34,8 @@ for name in l_name.split(' '):
 
         # 组装信息
         rank_tilte = response.json()['data']['rankTitle']  # 运动等级
-        athlete_near_pic = f"https://ydydj.univsport.com/{response.json()['data']['oneInchPhoto']}"  # 照片
+        inch_photo = response.json()['data']['oneInchPhoto']
+        athlete_near_pic = f"https://ydydj.univsport.com/{inch_photo}"  # 照片
         event_time = response.json()['data']['eventTime']  # 时间
         event_name = response.json()['data']['eventName']  # 比赛
         small_item_name = response.json()['data']['smallItemName']  # 项目
